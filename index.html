@@ -6,393 +6,66 @@
   <!-- Add the barcode library -->
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
   <style>
-    /* Compact header styles */
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2px; /* Further reduced */
-      background: #f2f2f2;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    
-    /* Top Navigation - More Compact */
+    /* New styles for the top navigation and barcode generation section */
     .top-nav {
       display: flex;
       background: #333;
-      padding: 2px 6px; /* Further reduced */
-      margin-bottom: 1px; /* Further reduced */
-      flex-wrap: wrap;
-      gap: 2px; /* Further reduced */
+      padding: 10px 20px;
+      margin-bottom: 20px;
     }
     .nav-item {
       color: white;
-      padding: 2px 5px; /* Further reduced */
+      padding: 8px 16px;
       cursor: pointer;
-      border-radius: 8px;
-      margin-right: 2px;
-      transition: all 0.3s ease;
-      font-weight: bold;
-      font-size: 0.8rem; /* Smaller font */
+      border-radius: 4px;
+      margin-right: 10px;
     }
-
-    /* Main sections */
-    .page-section {
-      display: none;
-    }
-    .page-section.active {
-      display: block;
-    }
-
-    /* Main heading - Smaller */
-    h2 {
-      text-align: center;
-      font-size: 1.0rem; /* Further reduced */
-      margin-bottom: 1px; /* Further reduced */
-      color: #333;
-    }
-
-    /* Mode toggle - Compact */
-    .mode-toggle {
-      margin-bottom: 4px; /* Further reduced */
-      display: flex;
-      gap: 1px;
-      align-items: center;
-      flex-wrap: wrap;
-      font-size: 0.8rem; /* Smaller font */
-    }
-
-    /* Form rows - More compact */
-    .form-row {
-      display: flex;
-      gap: 5px; /* Further reduced */
-      margin-bottom: 1px; /* Further reduced */
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 2px; /* Further reduced */
-    }
-    .form-group label {
-      font-size: 0.75rem; /* Smaller labels */
-      font-weight: bold;
-      color: #333;
-    }
-    input, select {
-      padding: 1px; /* Further reduced */
-      font-size: 0.8rem; /* Smaller font */
-      border: 1px solid #ccc;
-      border-radius: 2px;
-      width: 10px; /* Slightly smaller */
-      height: 28px; /* Fixed height */
-    }
-
-    /* Buttons - Smaller */
-    button {
-      padding: 5px 8px; /* Further reduced */
-      cursor: pointer;
-      font-size: 0.8rem; /* Smaller font */
-      border-radius: 3px;
-      border: 1px solid #ddd;
-      height: 30px; /* Fixed height */
-      margin-top: 16px; /* Adjusted for alignment */
-    }
-
-    /* Control sections - Compact */
-    .control-section {
-      background: white;
-      padding: 8px; /* Further reduced from 10px */
-      border-radius: 5px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.1); /* Lighter shadow */
-      margin-bottom: 8px; /* Further reduced */
-    }
-    .section-title {
-      font-weight: bold;
-      margin-bottom: 6px; /* Further reduced */
-      color: #333;
-      font-size: 0.9rem; /* Smaller */
-    }
-
-    /* Search and summary - Compact */
-    .search-container {
-      margin-bottom: 8px; /* Further reduced */
-      display: flex;
-      align-items: center;
-      gap: 10px; /* Further reduced gap */
-    }
-    .search-container input {
-      flex-grow: 1;
-      max-width: 260px; /* Slightly smaller */
-      height: 30px; /* Fixed height */
-    }
-    .summary-container {
-      display: flex;
-      gap: 12px; /* Further reduced gap */
-      margin-bottom: 6px; /* Further reduced */
-      padding: 6px; /* Further reduced padding */
-      background: #e9e9e9;
-      border-radius: 3px;
-      font-size: 0.8rem; /* Smaller font */
-    }
-
-    /* Table - More compact */
-    .table-container {
-      max-height: 350px; /* Further reduced from 400px */
-      overflow-y: auto;
-      margin-top: 12px; /* Further reduced */
-      border: 1px solid #bbb;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.75rem; /* Smaller font */
-    }
-    th, td {
-      border: 1px solid #bbb;
-      padding: 3px; /* Further reduced padding */
-      text-align: center;
-    }
-    .edit-btn, .delete-btn, .save-btn, .cancel-btn {
-      padding: 2px 5px; /* Smaller buttons */
-      margin: 1px;
-      font-size: 0.7rem; /* Smaller font */
-    }
-
-    /* Other compact adjustments */
-    .active-location {
-      background-color: #ffff99;
-      padding: 3px 6px; /* Further reduced */
-      font-weight: bold;
-      border-radius: 3px;
-      font-size: 0.75rem; /* Smaller */
-    }
-    .total-count {
-      background-color: #4CAF50;
-      color: white;
-      padding: 5px 10px; /* Further reduced */
-      border-radius: 3px;
-      font-weight: bold;
-      margin-left: auto;
-      font-size: 0.8rem; /* Smaller */
-    }
-    .clear-date {
-      background: none;
-      border: none;
-      color: #888;
-      cursor: pointer;
-      font-size: 0.7rem; /* Smaller */
-      margin-left: 2px; /* Further reduced */
-      height: fit-content;
-      margin-top: 16px; /* Adjusted */
-    }
-
-    /* Keep existing styles for other elements */
     .nav-item.active {
       background: #4CAF50;
     }
-    .nav-item.stock-count {
-      background: #4CAF50;
-    }
-    .nav-item.barcode-generation {
-      background: #2196F3;
-    }
-    .nav-item.fba-amazon {
-      background: #FF9800;
-    }
-    .nav-item.stock-finder {
-      background: #9C27B0;
-    }
-    .nav-item.product-barcode {
-      background: #F44336;
-    }
-    .nav-item.add-links {
-      background: #607D8B;
-      margin-left: auto;
-    }
-    .nav-item:hover {
-      transform: translateY(-1px); /* Smaller hover effect */
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
     .barcode-section {
-      padding: 12px; /* Further reduced */
+      display: none;
+      padding: 20px;
     }
     .barcode-controls {
       background: #f5f5f5;
-      padding: 10px; /* Further reduced */
-      border-radius: 3px;
-      margin-bottom: 12px; /* Further reduced */
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
     }
     .barcode-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px; /* Further reduced */
-      margin-bottom: 12px; /* Further reduced */
+      gap: 10px;
+      margin-bottom: 20px;
       page-break-after: always;
     }
     .barcode-item {
       border: 1px solid #ddd;
-      padding: 6px; /* Further reduced */
+      padding: 10px;
       text-align: center;
-      height: 90px; /* Further reduced from 100px */
+      height: 120px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
     .barcode-img {
-      max-height: 50px; /* Further reduced from 60px */
+      max-height: 80px;
       margin: 0 auto;
     }
     .barcode-text {
-      font-size: 10px; /* Smaller */
+      font-size: 12px;
       word-break: break-all;
     }
     .print-button {
       background: #4CAF50;
       color: white;
       border: none;
-      padding: 6px 12px; /* Further reduced */
-      border-radius: 2px;
+      padding: 10px 20px;
+      border-radius: 4px;
       cursor: pointer;
-      margin-bottom: 12px; /* Further reduced */
+      margin-bottom: 20px;
     }
-    
-    /* External page iframe */
-    .external-page {
-      width: 100%;
-      height: calc(100vh - 120px);
-      border: none;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    /* Modal styles - Keep existing */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background-color: white;
-      padding: 12px; /* Further reduced */
-      border-radius: 5px;
-      width: 90%;
-      max-width: 450px; /* Slightly smaller */
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px; /* Further reduced */
-      border-bottom: 1px solid #eee;
-      padding-bottom: 6px; /* Further reduced */
-    }
-    .modal-title {
-      font-size: 1rem; /* Slightly smaller */
-      font-weight: bold;
-    }
-    .close-modal {
-      background: none;
-      border: none;
-      font-size: 1.2rem; /* Slightly smaller */
-      cursor: pointer;
-    }
-    .form-group {
-      margin-bottom: 10px; /* Further reduced */
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 3px; /* Further reduced */
-      font-weight: bold;
-      font-size: 0.85rem; /* Smaller */
-    }
-    .form-group input {
-      width: 100%;
-      padding: 5px; /* Further reduced */
-      border: 1px solid #ddd;
-      border-radius: 2px;
-      box-sizing: border-box;
-      font-size: 0.85rem; /* Smaller */
-    }
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 6px; /* Further reduced */
-      margin-top: 12px; /* Further reduced */
-    }
-    .btn {
-      padding: 5px 10px; /* Further reduced */
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.85rem; /* Smaller */
-    }
-    .btn-primary {
-      background: #4CAF50;
-      color: white;
-    }
-    .btn-secondary {
-      background: #f1f1f1;
-      color: #333;
-    }
-    
-    /* Delete confirmation modal */
-    .delete-modal {
-      display: none;
-    }
-    .delete-reason {
-      width: 100%;
-      padding: 5px; /* Further reduced */
-      border: 1px solid #ddd;
-      border-radius: 2px;
-      margin-top: 6px; /* Further reduced */
-      box-sizing: border-box;
-      font-size: 0.85rem; /* Smaller */
-    }
-    
-    /* Links list in modal */
-    .links-list {
-      max-height: 200px; /* Further reduced */
-      overflow-y: auto;
-      margin-top: 12px; /* Further reduced */
-    }
-    .link-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px; /* Further reduced */
-      border-bottom: 1px solid #eee;
-    }
-    .link-info {
-      flex-grow: 1;
-    }
-    .link-name {
-      font-weight: bold;
-      font-size: 0.85rem; /* Smaller */
-    }
-    .link-url {
-      font-size: 0.7rem; /* Smaller */
-      color: #666;
-    }
-    .delete-link-btn {
-      background: #f44336;
-      color: white;
-      border: none;
-      padding: 3px 6px; /* Further reduced */
-      border-radius: 2px;
-      cursor: pointer;
-      font-size: 0.75rem; /* Smaller */
-    }
-    
     @media print {
       .no-print {
         display: none;
@@ -402,110 +75,236 @@
       }
     }
   </style>
+  <!-- Your existing styles remain unchanged -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group, .mode-toggle {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    input, select {
+      padding: 8px;
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    .table-container {
+      max-height: 500px;
+      overflow-y: auto;
+      margin-top: 25px;
+      border: 1px solid #bbb;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    thead {
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 10;
+    }
+    th, td {
+      border: 1px solid #bbb;
+      padding: 6px;
+      text-align: center;
+    }
+    th {
+      background: #ddd;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+    .edit-btn, .delete-btn, .save-btn, .cancel-btn {
+      padding: 4px 8px;
+      margin: 2px;
+      font-size: 0.8rem;
+    }
+    .active-location {
+      background-color: #ffff99;
+      padding: 5px 10px;
+      font-weight: bold;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .delete-all-btn {
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      margin-left: 10px;
+      display: none;
+    }
+    .download-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .download-options button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+    .date-fields {
+      display: flex;
+      gap: 10px;
+    }
+    .date-fields input {
+      width: 120px;
+    }
+    .small-col {
+      width: 40px;
+    }
+    .medium-col {
+      width: 80px;
+    }
+    .clear-date {
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-left: 5px;
+    }
+    .total-count {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-left: auto;
+    }
+    .search-container {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .search-container input {
+      flex-grow: 1;
+      max-width: 300px;
+    }
+    .summary-container {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #e9e9e9;
+      border-radius: 5px;
+    }
+    .summary-item {
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
 <!-- New Top Navigation -->
-<div class="top-nav no-print" id="topNav">
-  <!-- Links will be dynamically added here -->
+<style>
+  .top-nav {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(90deg, #e0e0e0, #e0e0e0, #e0e0e0, #e0e0e0);
+    padding: 10px 0;
+    border-radius: 30px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav-item {
+    color: black;
+    font-weight: 600;
+    margin: 0 15px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-item:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.1);
+  }
+
+  .nav-item.active {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid white;
+  }
+</style>
+
+<div class="top-nav no-print">
+  <div class="nav-item active" onclick="showSection('stock-count')">Stock Count</div>
+<div class="nav-item" onclick="window.open('https://depoter010.github.io/Petty-Cash-Control/', '_blank')">Petty Cash Control</div>
+  <div class="nav-item" onclick="window.open('https://depoter010.github.io/Stockfind/', '_blank')">Stock Find</div>
+<div class="nav-item" onclick="window.open('https://depoter010.github.io/Free-online-barcode-generator/', '_blank')">Barcode Generate</div>
+<div class="nav-item" onclick="window.open('https://depoter010.github.io/amazon-barcode-generator/', '_blank')">Amazon Barcode Generate</div>
+<div class="nav-item" onclick="window.open('https://depoter010.github.io/Depoter010InvoiceGenerate/', '_blank')">Invoice Generate</div>
+<div class="nav-item" onclick="window.open('https://depoter010.github.io/Free-Web-Based-Invoice-Generator-for-Professionals/', '_blank')">Professional Invoice Generate</div>
 </div>
 
-<!-- Add Links Modal -->
-<div id="addLinksModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-title">Add/Manage Links</div>
-      <button class="close-modal" onclick="closeAddLinksModal()">&times;</button>
-    </div>
-    <div class="form-group">
-      <label for="linkName">Link Name</label>
-      <input type="text" id="linkName" placeholder="Enter link name">
-    </div>
-    <div class="form-group">
-      <label for="linkUrl">Link URL</label>
-      <input type="text" id="linkUrl" placeholder="Enter URL (https://...)">
-    </div>
-    <div class="form-group">
-      <label for="linkColor">Link Color</label>
-      <input type="color" id="linkColor" value="#4CAF50">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-primary" onclick="addNewLink()">Add Link</button>
-      <button class="btn btn-secondary" onclick="closeAddLinksModal()">Cancel</button>
-    </div>
-    
-    <div class="links-list" id="linksList">
-      <!-- Links will be dynamically added here -->
-    </div>
+
+<!-- Barcode Generation Section -->
+<div id="barcode-generation" class="barcode-section">
+  <div class="barcode-controls no-print">
+    <button onclick="downloadSampleExcel()">Download Sample Excel File</button>
+    <input type="file" id="excelUpload" accept=".xlsx, .xls" onchange="handleExcelUpload(event)" style="margin: 0 20px;">
+    <label>
+      <input type="checkbox" id="groupBySku"> Group by SKU (print one barcode per SKU)
+    </label>
+    <button class="print-button" onclick="window.print()">Print Barcodes</button>
   </div>
+  <div id="barcode-container"></div>
 </div>
 
-<!-- Delete Link Confirmation Modal -->
-<div id="deleteLinkModal" class="modal delete-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-title">Delete Link</div>
-      <button class="close-modal" onclick="closeDeleteModal()">&times;</button>
-    </div>
-    <div class="form-group">
-      <p>Are you sure you want to delete this link? Please provide a reason:</p>
-      <input type="text" id="deleteReason" class="delete-reason" placeholder="Enter reason for deletion">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-primary" onclick="confirmDeleteLink()">Delete</button>
-      <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<!-- Stock Count Section -->
-<div id="stock-count" class="page-section active">
+<!-- Your existing dashboard (now wrapped in a section) -->
+<div id="stock-count">
   <h2>📦 Warehouse Barcode Scanner</h2>
 
   <div class="mode-toggle">
     <label><input type="radio" name="mode" value="manual" checked onchange="changeMode()"> Manual</label>
-    <label><input type="radio" name="mode" value="Scan" onchange="changeMode()"> Scan</label>
+    <label><input type="radio" name="mode" value="direct" onchange="changeMode()"> Direct</label>
     <span id="currentLocationDisplay" class="active-location" style="display:none;">Current Location: --</span>
     <span id="totalCountDisplay" class="total-count">Total: 0</span>
   </div>
 
-  <div class="control-section">
-    <div class="section-title">Manual</div>
-    <div class="form-row">
-      <div class="form-group">
-        <label for="barcodeInput">Enter Barcode / Location</label>
-        <input type="text" id="barcodeInput" placeholder="Enter Barcode / Location" />
-      </div>
-      <div class="form-group">
-        <label for="qtyInput">Qty</label>
-        <input type="number" id="qtyInput" placeholder="Qty" />
-      </div>
-      <div class="form-group">
-        <label for="locationInput">Location</label>
-        <input type="text" id="locationInput" placeholder="Location" />
-      </div>
-      <div class="form-group">
-        <label for="productionDate">Production Date</label>
-        <input type="date" id="productionDate" placeholder="Production Date" />
-      </div>
-      <div class="form-group">
-        <label for="expiryDate">Expiry Date</label>
-        <div class="date-fields">
-          <input type="date" id="expiryDate" placeholder="Expiry Date" />
-          <button class="clear-date" onclick="clearExpiryDate()">Clear Expiry</button>
-        </div>
-      </div>
-      <button onclick="addEntry()">Add</button>
+  <div class="form-group">
+    <input type="text" id="barcodeInput" placeholder="Enter Barcode / Location" />
+    <input type="number" id="qtyInput" placeholder="Qty" />
+    <input type="text" id="locationInput" placeholder="Location" />
+    <div class="date-fields">
+      <input type="date" id="productionDate" placeholder="Production Date" />
+      <input type="date" id="expiryDate" placeholder="Expiry Date" />
+      <button class="clear-date" onclick="clearExpiryDate()">Clear Expiry</button>
     </div>
-  </div>
-
-  <div class="control-section">
-    <div class="section-title">Reports</div>
-    <div class="form-row">
+    <button onclick="addEntry()">Add</button>
+    <div class="download-options">
       <button onclick="downloadExcel('standard')">📥 Standard Report</button>
       <button onclick="downloadExcel('consolidated')">📥 Consolidated Report</button>
-      <button id="deleteAllBtn" class="delete-all-btn" onclick="deleteSelected()">Delete All Selected</button>
     </div>
+    <button id="deleteAllBtn" class="delete-all-btn" onclick="deleteSelected()">Delete All Selected</button>
   </div>
 
   <div class="search-container">
@@ -535,247 +334,18 @@
   </div>
 </div>
 
-<!-- Barcode Generation Section -->
-<div id="barcode-generation" class="page-section">
-  <div class="barcode-controls no-print">
-    <button onclick="downloadSampleExcel()">Download Sample Excel File</button>
-    <input type="file" id="excelUpload" accept=".xlsx, .xls" onchange="handleExcelUpload(event)" style="margin: 0 20px;">
-    <label>
-      <input type="checkbox" id="groupBySku"> Group by SKU (print one barcode per SKU)
-    </label>
-    <button class="print-button" onclick="window.print()">Print Barcodes</button>
-  </div>
-  <div id="barcode-container"></div>
-</div>
-
-<!-- External Pages Sections -->
-<div id="fba-amazon" class="page-section">
-  <iframe src="https://depoter010.github.io/amazon-barcode-generator/" class="external-page"></iframe>
-</div>
-
-<div id="stock-finder" class="page-section">
-  <iframe src="https://depoter010.github.io/Stockfind/" class="external-page"></iframe>
-</div>
-
-<div id="product-barcode" class="page-section">
-  <iframe src="https://depoter010.github.io/Free-online-barcode-generator/" class="external-page"></iframe>
-</div>
-
 <!-- Your existing script remains unchanged -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-  // New functions for link management
-  let customLinks = JSON.parse(localStorage.getItem('customLinks') || '[]');
-  let linkToDelete = null;
-  
-  // Default links - updated to use same-page navigation
-  const defaultLinks = [
-    { name: 'Stock Count', url: '#', color: '#4CAF50', type: 'internal', id: 'stock-count' },
-    { name: 'Fba Amazon Barcode Free Generate', url: 'https://depoter010.github.io/amazon-barcode-generator/', color: '#FF9800', type: 'external', id: 'fba-amazon' },
-    { name: 'Easy Stock Finder ✅', url: 'https://depoter010.github.io/Stockfind/', color: '#9C27B0', type: 'external', id: 'stock-finder' },
-    { name: 'Product Barcode Generate Free', url: 'https://depoter010.github.io/Free-online-barcode-generator/', color: '#F44336', type: 'external', id: 'product-barcode' },
-    { name: 'Add More Links', url: '#', color: '#607D8B', type: 'add-links' }
-  ];
-  
-  // Initialize navigation
-  function initNavigation() {
-    const topNav = document.getElementById('topNav');
-    topNav.innerHTML = '';
-    
-    // Add default links
-    defaultLinks.forEach(link => {
-      const navItem = document.createElement('div');
-      navItem.className = `nav-item ${link.type === 'internal' ? link.id : ''} ${link.type === 'add-links' ? 'add-links' : ''}`;
-      navItem.textContent = link.name;
-      navItem.style.backgroundColor = link.color;
-      
-      if (link.type === 'internal' || link.type === 'external') {
-        navItem.onclick = () => showPage(link.id);
-      } else if (link.type === 'add-links') {
-        navItem.onclick = () => openAddLinksModal();
-      }
-      
-      topNav.appendChild(navItem);
-    });
-    
-    // Add custom links
-    customLinks.forEach(link => {
-      const navItem = document.createElement('div');
-      navItem.className = 'nav-item';
-      navItem.textContent = link.name;
-      navItem.style.backgroundColor = link.color;
-      navItem.onclick = () => showExternalPage(link.name, link.url);
-      topNav.appendChild(navItem);
-    });
-  }
-  
-  // Show page function for same-page navigation
-  function showPage(pageId) {
-    // Hide all pages
-    document.querySelectorAll('.page-section').forEach(section => {
-      section.classList.remove('active');
-    });
-    
-    // Show selected page
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) {
-      targetPage.classList.add('active');
-    }
-    
-    // Update active nav item
+  // New functions for barcode generation
+  function showSection(sectionId) {
     document.querySelectorAll('.nav-item').forEach(item => {
-      item.classList.remove('active');
+      item.classList.toggle('active', item.textContent.includes(sectionId === 'stock-count' ? 'Stock Count' : 'Barcode Generation'));
     });
-    
-    // Find and activate the corresponding nav item
-    const navItems = document.querySelectorAll('.nav-item');
-    for (let item of navItems) {
-      if (item.textContent === getLinkNameById(pageId)) {
-        item.classList.add('active');
-        break;
-      }
-    }
-  }
-  
-  // Helper function to get link name by ID
-  function getLinkNameById(id) {
-    const link = defaultLinks.find(link => link.id === id);
-    return link ? link.name : '';
-  }
-  
-  // Function to show external pages in iframe
-  function showExternalPage(name, url) {
-    // Create or update external page section
-    let externalSection = document.getElementById('external-page');
-    if (!externalSection) {
-      externalSection = document.createElement('div');
-      externalSection.id = 'external-page';
-      externalSection.className = 'page-section';
-      document.body.appendChild(externalSection);
-    }
-    
-    externalSection.innerHTML = `<iframe src="${url}" class="external-page" title="${name}"></iframe>`;
-    
-    // Hide all pages and show external page
-    document.querySelectorAll('.page-section').forEach(section => {
-      section.classList.remove('active');
-    });
-    externalSection.classList.add('active');
-    
-    // Update active nav item
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.classList.remove('active');
-      if (item.textContent === name) {
-        item.classList.add('active');
-      }
-    });
-  }
-  
-  function openAddLinksModal() {
-    document.getElementById('addLinksModal').style.display = 'flex';
-    renderLinksList();
-  }
-  
-  function closeAddLinksModal() {
-    document.getElementById('addLinksModal').style.display = 'none';
-    document.getElementById('linkName').value = '';
-    document.getElementById('linkUrl').value = '';
-    document.getElementById('linkColor').value = '#4CAF50';
-  }
-  
-  function addNewLink() {
-    const name = document.getElementById('linkName').value.trim();
-    const url = document.getElementById('linkUrl').value.trim();
-    const color = document.getElementById('linkColor').value;
-    
-    if (!name || !url) {
-      alert('Please enter both name and URL');
-      return;
-    }
-    
-    // Validate URL format
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      alert('Please enter a valid URL starting with http:// or https://');
-      return;
-    }
-    
-    const newLink = {
-      name,
-      url,
-      color,
-      id: 'custom-' + Date.now()
-    };
-    
-    customLinks.push(newLink);
-    localStorage.setItem('customLinks', JSON.stringify(customLinks));
-    
-    // Reset form
-    document.getElementById('linkName').value = '';
-    document.getElementById('linkUrl').value = '';
-    document.getElementById('linkColor').value = '#4CAF50';
-    
-    // Update navigation and links list
-    initNavigation();
-    renderLinksList();
-  }
-  
-  function renderLinksList() {
-    const linksList = document.getElementById('linksList');
-    linksList.innerHTML = '';
-    
-    if (customLinks.length === 0) {
-      linksList.innerHTML = '<p>No custom links added yet.</p>';
-      return;
-    }
-    
-    customLinks.forEach((link, index) => {
-      const linkItem = document.createElement('div');
-      linkItem.className = 'link-item';
-      
-      linkItem.innerHTML = `
-        <div class="link-info">
-          <div class="link-name">${link.name}</div>
-          <div class="link-url">${link.url}</div>
-        </div>
-        <button class="delete-link-btn" onclick="openDeleteModal(${index})">Delete</button>
-      `;
-      
-      linksList.appendChild(linkItem);
-    });
-  }
-  
-  function openDeleteModal(index) {
-    linkToDelete = index;
-    document.getElementById('deleteLinkModal').style.display = 'flex';
-    document.getElementById('deleteReason').value = '';
-  }
-  
-  function closeDeleteModal() {
-    document.getElementById('deleteLinkModal').style.display = 'none';
-    linkToDelete = null;
-  }
-  
-  function confirmDeleteLink() {
-    const reason = document.getElementById('deleteReason').value.trim();
-    
-    if (!reason) {
-      alert('Please provide a reason for deletion');
-      return;
-    }
-    
-    // Remove the link
-    customLinks.splice(linkToDelete, 1);
-    localStorage.setItem('customLinks', JSON.stringify(customLinks));
-    
-    // Update navigation and links list
-    initNavigation();
-    renderLinksList();
-    closeDeleteModal();
-    
-    alert(`Link deleted. Reason: ${reason}`);
+    document.getElementById('stock-count').style.display = sectionId === 'stock-count' ? 'block' : 'none';
+    document.getElementById('barcode-generation').style.display = sectionId === 'barcode-generation' ? 'block' : 'none';
   }
 
-  // Barcode generation functions
   function downloadSampleExcel() {
     const sampleData = [
       ["SKU", "Barcode", "Quantity"],
@@ -893,7 +463,7 @@
     return result;
   }
 
-  // Your existing JavaScript code for stock count functionality
+  // Your existing JavaScript code remains unchanged
   let entries = JSON.parse(localStorage.getItem('warehouseEntries') || '[]');
   let currentMode = "manual";
   let currentLocation = "";
@@ -908,8 +478,7 @@
     document.getElementById('expiryDate').value = '';
     updateTotalCount();
     updateSummary();
-    initNavigation(); // Initialize the navigation
-    // Stock count is active by default
+    showSection('stock-count'); // Show stock count by default
   });
 
   function updateTotalCount() {
@@ -923,14 +492,14 @@
   function changeMode() {
     currentMode = document.querySelector('input[name="mode"]:checked').value;
 
-    document.getElementById('qtyInput').disabled = (currentMode === 'Scan');
-    document.getElementById('locationInput').disabled = (currentMode === 'Scan');
-    document.getElementById('productionDate').disabled = (currentMode === 'Scan');
+    document.getElementById('qtyInput').disabled = (currentMode === 'direct');
+    document.getElementById('locationInput').disabled = (currentMode === 'direct');
+    document.getElementById('productionDate').disabled = (currentMode === 'direct');
     document.getElementById('expiryDate').disabled = false; // Always editable
 
     clearInputs();
 
-    if (currentMode === 'Scan') {
+    if (currentMode === 'direct') {
       document.getElementById('currentLocationDisplay').style.display = 'inline-block';
       document.getElementById('currentLocationDisplay').innerText = `Current Location: ${currentLocation || '--'}`;
     } else {
@@ -951,14 +520,14 @@
 
   function addEntry() {
     const input = document.getElementById('barcodeInput').value.trim().toUpperCase();
-    let qty = currentMode === 'Scan' ? 1 : parseInt(document.getElementById('qtyInput').value);
+    let qty = currentMode === 'direct' ? 1 : parseInt(document.getElementById('qtyInput').value);
     let location = document.getElementById('locationInput').value.trim();
     let productionDate = document.getElementById('productionDate').value;
     let expiryDate = document.getElementById('expiryDate').value;
 
     // Auto-detect location format (2 letters + 6 digits)
     if (isLocationCode(input)) {
-      if (currentMode === 'Scan') {
+      if (currentMode === 'direct') {
         currentLocation = input;
         document.getElementById('currentLocationDisplay').innerText = `Current Location: ${currentLocation}`;
         document.getElementById('barcodeInput').value = "";
@@ -971,7 +540,7 @@
       }
     }
 
-    if (currentMode === 'Scan') {
+    if (currentMode === 'direct') {
       if (!currentLocation) {
         alert("Please scan a location first!");
         return;
@@ -1107,7 +676,7 @@
 
   function clearInputs() {
     document.getElementById('barcodeInput').value = "";
-    if (currentMode !== 'Scan') {
+    if (currentMode !== 'direct') {
       document.getElementById('qtyInput').value = "";
       document.getElementById('locationInput').value = "";
     }
