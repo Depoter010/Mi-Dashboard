@@ -464,7 +464,7 @@
 
   <div class="mode-toggle">
     <label><input type="radio" name="mode" value="manual" checked onchange="changeMode()"> Manual</label>
-    <label><input type="radio" name="mode" value="direct" onchange="changeMode()"> Direct</label>
+    <label><input type="radio" name="mode" value="Scan" onchange="changeMode()"> Scan</label>
     <span id="currentLocationDisplay" class="active-location" style="display:none;">Current Location: --</span>
     <span id="totalCountDisplay" class="total-count">Total: 0</span>
   </div>
@@ -923,14 +923,14 @@
   function changeMode() {
     currentMode = document.querySelector('input[name="mode"]:checked').value;
 
-    document.getElementById('qtyInput').disabled = (currentMode === 'direct');
-    document.getElementById('locationInput').disabled = (currentMode === 'direct');
-    document.getElementById('productionDate').disabled = (currentMode === 'direct');
+    document.getElementById('qtyInput').disabled = (currentMode === 'Scan');
+    document.getElementById('locationInput').disabled = (currentMode === 'Scan');
+    document.getElementById('productionDate').disabled = (currentMode === 'Scan');
     document.getElementById('expiryDate').disabled = false; // Always editable
 
     clearInputs();
 
-    if (currentMode === 'direct') {
+    if (currentMode === 'Scan') {
       document.getElementById('currentLocationDisplay').style.display = 'inline-block';
       document.getElementById('currentLocationDisplay').innerText = `Current Location: ${currentLocation || '--'}`;
     } else {
@@ -951,14 +951,14 @@
 
   function addEntry() {
     const input = document.getElementById('barcodeInput').value.trim().toUpperCase();
-    let qty = currentMode === 'direct' ? 1 : parseInt(document.getElementById('qtyInput').value);
+    let qty = currentMode === 'Scan' ? 1 : parseInt(document.getElementById('qtyInput').value);
     let location = document.getElementById('locationInput').value.trim();
     let productionDate = document.getElementById('productionDate').value;
     let expiryDate = document.getElementById('expiryDate').value;
 
     // Auto-detect location format (2 letters + 6 digits)
     if (isLocationCode(input)) {
-      if (currentMode === 'direct') {
+      if (currentMode === 'Scan') {
         currentLocation = input;
         document.getElementById('currentLocationDisplay').innerText = `Current Location: ${currentLocation}`;
         document.getElementById('barcodeInput').value = "";
@@ -971,7 +971,7 @@
       }
     }
 
-    if (currentMode === 'direct') {
+    if (currentMode === 'Scan') {
       if (!currentLocation) {
         alert("Please scan a location first!");
         return;
@@ -1107,7 +1107,7 @@
 
   function clearInputs() {
     document.getElementById('barcodeInput').value = "";
-    if (currentMode !== 'direct') {
+    if (currentMode !== 'Scan') {
       document.getElementById('qtyInput').value = "";
       document.getElementById('locationInput').value = "";
     }
